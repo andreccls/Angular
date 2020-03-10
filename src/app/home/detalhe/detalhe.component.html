@@ -1,0 +1,123 @@
+<article class="entry">
+
+    <header class="entry-header">
+
+        <h2 class="entry-title">
+            {{ post.title }}
+        </h2>
+
+        <div class="entry-meta">
+            <ul>
+                <li> <span class="meta-sep">&bull;</span> </li>
+                <li>{{ usuario.first_name }} {{ usuario.last_name }}</li>
+            </ul>
+        </div>
+
+    </header>
+
+    <div class="entry-content-media">
+        <div class="post-thumb">
+            <img src="/assets/images/m-farmerboy.jpg">
+        </div>
+    </div>
+
+    <div class="entry-content">
+        <p class="lead">{{ post.body }}</p>
+    </div>
+
+</article>
+
+<!-- Comments
+ ================================================== -->
+<div id="comments">
+
+    <h3>{{ comentarios._meta?.totalCount }} Comments</h3>
+
+    <!-- commentlist -->
+    <ol class="commentlist" *ngFor="let comment of comentarios.result; index as i; first as isFirst">
+
+        <li class="depth-1">
+
+            <div class="avatar">
+                <img width="50" height="50" class="avatar" src="/assets/images/user-01.png" alt="">
+            </div>
+
+            <div class="comment-content">
+
+                <div class="comment-info">
+                    <cite>{{ comment.name }}</cite>
+
+                    <div class="comment-meta">
+                    </div>
+                </div>
+
+                <div class="comment-text">
+                    <p>{{ comment.body }}</p>
+                </div>
+
+            </div>
+
+        </li>
+
+
+    </ol> <!-- Commentlist End -->
+
+
+    <!-- respond -->
+    <div class="respond">
+
+        <h3>Leave a Comment</h3>
+
+        <!-- form -->
+        <form name="contactForm" id="contactForm" [formGroup]="contactForm" method="post" (ngSubmit)="onSubmit()">
+            <fieldset>
+
+                <div class="group">
+                    <label for="cName">Name <span class="required">*</span></label>
+                    <input name="cName" type="text" id="cName" size="35" value="" formControlName="name" required />
+                    <div *ngIf="!name.pristine && name.errors">
+                        <p *ngIf="name.errors.required">
+                            Nome é obrigatório.
+                        </p>
+                        <p *ngIf="name.errors.minlength">
+                            Nome deve ter no mínimo 3 caracters.
+                        </p>
+                        <p *ngIf="name.errors.maxlength">
+                            Nome deve ter no máximo 100 caracters.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="group">
+                    <label for="cEmail">Email <span class="required">*</span></label>
+                    <input name="cEmail" type="text" id="cEmail" size="35" value="" formControlName="email" required />
+                    <div *ngIf="!email.pristine && email.errors">
+                        <p *ngIf="email.errors.email">
+                            Digite um e-mail válido.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="message group">
+                    <label for="cMessage">Message <span class="required">*</span></label>
+                    <textarea name="cMessage" id="cMessage" rows="10" cols="50" formControlName="body"
+                        required></textarea>
+                    <div *ngIf="!name.pristine && name.errors">
+                        <p *ngIf="body.errors.required">
+                            Mensagem é obrigatória.
+                        </p>
+                        <p *ngIf="body.errors.minlength">
+                            Mensagem deve ter no mínimo 10 caracters.
+                        </p>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit">Submit</button>
+
+            </fieldset>
+        </form> <!-- Form End -->
+        <div>{{ contactForm.value | json}}</div>
+        <div>{{ contactForm.valid | json }}</div>
+    </div> <!-- Respond End -->
+
+</div> <!-- Comments End -->

@@ -1,0 +1,22 @@
+<article class="entry" *ngFor="let post of posts.result; index as i; first as isFirst">
+
+    <header class="entry-header">
+
+        <h2 class="entry-title">
+            <a href="/detalhe/{{ post.id }}" title="">{{ post.title }}</a>
+        </h2>
+
+        <div class="entry-meta">
+            <ul>
+                <li> </li>
+                <li></li>
+            </ul>
+        </div>
+
+    </header>
+
+    <div class="entry-content">
+        <p>{{ post.body }}</p>
+    </div>
+
+</article> <!-- end entry -->
